@@ -77,13 +77,12 @@
         </view>
       </view>
 
-      <!-- 位置 -->
-      <view class="form-field">
-        <view class="field-label">📍 位置</view>
-        <view class="field-location {{locationText === '' ? 'loading' : locationText.indexOf('失败') !== -1 || locationText.indexOf('拒绝') !== -1 ? 'error' : ''}}">
-          <text wx:if="{{locationText === ''}}">正在获取位置...</text>
-          <text wx:elif="{{locationText.indexOf('失败') !== -1 || locationText.indexOf('拒绝') !== -1}}">{{locationText}}</text>
-          <text wx:else>{{locationText}}</text>
+      <!-- 位置（点击选点，选填） -->
+      <view class="form-field" bindtap="tapPickLocation">
+        <view class="field-label">📍 位置 <text style="font-weight:400;color:var(--gray-400)">选填</text></view>
+        <view class="field-location {{locationText ? '' : 'empty'}}">
+          <text wx:if="{{locationText}}">{{locationText}}</text>
+          <text wx:else>点击选择当前位置</text>
         </view>
       </view>
 

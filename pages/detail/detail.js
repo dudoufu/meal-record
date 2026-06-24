@@ -133,9 +133,23 @@ Page({
     })
   },
 
+  // ===== 编辑模式重选位置 =====
+  editPickLocation() {
+    const that = this
+    util.pickLocation(function(loc) {
+      if (loc) {
+        const text = loc.name ? loc.name + ' · ' + loc.address : loc.address
+        that.setData({
+          location: { latitude: loc.latitude, longitude: loc.longitude },
+          locationText: text
+        })
+      }
+    })
+  },
+
   // ===== 保存编辑 =====
   saveEdit() {
-    const { recordId, editFoodName, editMealType, editTastiness, editNotes, editImageUrl, isFavorited } = this.data
+    const { recordId, editFoodName, editMealType, editTastiness, editNotes, editImageUrl, isFavorited, location, locationText } = this.data
 
     if (!editFoodName || editFoodName.trim() === '') {
       util.showToast('请输入食物名称')
@@ -152,6 +166,8 @@ Page({
     records[idx].notes = editNotes || ''
     records[idx].imageUrl = editImageUrl
     records[idx].isFavorited = isFavorited
+    records[idx].location = location || null
+    records[idx].locationText = locationText || ''
     records[idx].updatedAt = Date.now()
     wx.setStorageSync('food_records', records)
 

@@ -102,24 +102,20 @@ Page({
       imageUrl: tempFilePath,
       foodName: ''
     })
-    // 获取当前位置
-    this.fetchLocation()
   },
 
-  // ===== 获取当前位置 =====
-  fetchLocation() {
+  // ===== 点击选点 =====
+  tapPickLocation() {
     const that = this
-    util.getLocationAddress(function(loc, err) {
+    util.pickLocation(function(loc) {
       if (loc) {
+        const text = loc.name ? loc.name + ' · ' + loc.address : loc.address
         that.setData({
           location: { latitude: loc.latitude, longitude: loc.longitude },
-          locationText: loc.address
+          locationText: text
         })
-      } else if (err && err.errMsg && err.errMsg.indexOf('deny') !== -1) {
-        that.setData({ locationText: '📍 位置授权已拒绝' })
-      } else {
-        that.setData({ locationText: '📍 位置获取失败' })
       }
+      // 用户取消则无操作
     })
   },
 

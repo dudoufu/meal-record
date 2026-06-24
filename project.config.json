@@ -46,9 +46,11 @@
     "swc": false,
     "disableSWC": true
   },
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "compileType": "miniprogram",
   "libVersion": "3.16.2",
-  "appid": "wxca1023cd5b9b3b63",
+  "appid": "wx00d2e45d76db5627",
   "projectname": "干饭日记",
   "condition": {},
   "editorSetting": {

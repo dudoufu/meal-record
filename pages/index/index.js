@@ -22,6 +22,10 @@ Page({
 
   onShow() {
     this.loadData()
+    // 更新自定义 Tab 高亮
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 })
+    }
   },
 
   onPullDownRefresh() {

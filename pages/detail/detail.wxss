@@ -200,10 +200,17 @@
 .detail-location {
   font-size: 28rpx;
   color: var(--gray-600);
-  padding: 16rpx 20rpx;
-  background: var(--gray-50);
-  border-radius: 12rpx;
+  padding: 20rpx 24rpx;
+  background: var(--green-bg);
+  border: 3rpx dashed var(--green-light);
+  border-radius: 16rpx;
   line-height: 1.5;
+}
+
+.detail-location.empty {
+  color: var(--green);
+  text-align: center;
+  font-weight: 500;
 }
 
 /* 编辑模式：照片重选提示 */

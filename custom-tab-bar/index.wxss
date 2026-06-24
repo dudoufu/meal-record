@@ -1,0 +1,30 @@
+.tab-bar {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  background: #ffffff;
+  border-top: none;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.tab-text {
+  font-size: 26rpx;
+  color: #c0c4cc;
+  font-weight: 400;
+  transition: all .2s;
+}
+
+.tab-item.active .tab-text {
+  font-size: 30rpx;
+  color: #10b981;
+  font-weight: 600;
+}

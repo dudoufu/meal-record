@@ -97,10 +97,11 @@
       </view>
     </view>
 
-    <!-- 位置 -->
-    <view class="detail-section" wx:if="{{locationText}}">
-      <view class="section-label">📍 位置</view>
-      <view class="detail-location">{{locationText}}</view>
+    <!-- 位置（点击重选） -->
+    <view class="detail-section" bindtap="editPickLocation">
+      <view class="section-label">📍 位置  <text style="font-weight:400;color:var(--gray-400)">点击重选</text></view>
+      <view class="detail-location" wx:if="{{locationText}}">{{locationText}}</view>
+      <view class="detail-location empty" wx:else>点击添加位置</view>
     </view>
 
     <!-- 备注 -->

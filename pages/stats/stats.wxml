@@ -74,7 +74,6 @@
     <view class="empty-state" wx:else>
       <text class="empty-icon">📝</text>
       <view class="empty-text">这天还没有记录</view>
-      <button class="empty-btn" bindtap="goToRecord">记录饮食</button>
     </view>
 
     <!-- ===== 本周统计 ===== -->

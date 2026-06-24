@@ -228,51 +228,20 @@ function getBgColorById(id) {
   return FOOD_BG_COLORS[Math.abs(hash) % FOOD_BG_COLORS.length]
 }
 
-// 腾讯位置服务 Key
-const TENCENT_MAP_KEY = 'H6WBZ-RKPLI-ER3GX-UNWLZ-RFMOZ-QFFFR'
-
-// 获取当前位置 → 地址文字（带超时降级）
-function getLocationAddress(callback) {
-  let timedOut = false
-  const timer = setTimeout(() => {
-    timedOut = true
-    callback(null) // 超时，返回 null
-  }, 5000)
-
-  wx.getLocation({
-    type: 'wgs84',
+// 调起微信地图选点 → 返回 { name, address, latitude, longitude }
+// 全类目可用，无需额外权限申请
+function pickLocation(callback) {
+  wx.chooseLocation({
     success(res) {
-      if (timedOut) return
-      clearTimeout(timer)
-      const { latitude, longitude } = res
-      wx.request({
-        url: 'https://apis.map.qq.com/ws/geocoder/v1/',
-        data: {
-          location: `${latitude},${longitude}`,
-          key: TENCENT_MAP_KEY
-        },
-        success(resp) {
-          if (timedOut) return
-          if (resp.data && resp.data.result) {
-            const addr = resp.data.result.address || ''
-            callback({ latitude, longitude, address: addr })
-          } else {
-            // API 返回异常，降级返回坐标
-            callback({ latitude, longitude, address: `${latitude.toFixed(4)},${longitude.toFixed(4)}` })
-          }
-        },
-        fail() {
-          if (timedOut) return
-          // 网络请求失败，降级返回坐标
-          callback({ latitude, longitude, address: `${latitude.toFixed(4)},${longitude.toFixed(4)}` })
-        }
+      callback({
+        name: res.name || '',
+        address: res.address || '',
+        latitude: res.latitude,
+        longitude: res.longitude
       })
     },
-    fail(err) {
-      clearTimeout(timer)
-      if (timedOut) return
-      // 定位失败或用户拒绝授权
-      callback(null, err)
+    fail() {
+      callback(null) // 用户取消或失败
     }
   })
 }
@@ -310,6 +279,6 @@ module.exports = {
   calcMonthlyRank,
   calcCategoryDist,
   getWeekRecords,
-  getLocationAddress,
+  pickLocation,
   showToast
 }
