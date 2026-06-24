@@ -1,0 +1,298 @@
+/* ===== 详情页样式 ===== */
+.page-detail {
+  background: #fff;
+  min-height: 100vh;
+  padding-bottom: 80rpx;
+}
+
+/* 食物图片 */
+.detail-image {
+  width: 100%;
+  height: 520rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  overflow: hidden;
+}
+
+.detail-real-image {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-emoji {
+  font-size: 160rpx;
+}
+
+/* 内容 */
+.detail-body {
+  padding: 32rpx 40rpx;
+}
+
+/* 名称行 */
+.detail-name-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.detail-name {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--gray-900);
+  flex: 1;
+}
+
+.detail-name-input {
+  flex: 1;
+  padding: 20rpx 24rpx;
+  border: 3rpx solid var(--gray-200);
+  border-radius: 16rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--gray-800);
+  outline: none;
+  box-sizing: border-box;
+  min-height: 88rpx;
+}
+
+.detail-name-input:focus {
+  border-color: var(--green);
+}
+
+/* 收藏按钮 */
+.detail-fav {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  flex-shrink: 0;
+}
+
+.detail-fav:active {
+  transform: scale(.92);
+}
+
+/* 元信息 */
+.detail-meta {
+  display: flex;
+  gap: 32rpx;
+  margin-top: 16rpx;
+}
+
+.meta-item {
+  font-size: 26rpx;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+/* 分类标签 */
+/* 区域 */
+.detail-section {
+  margin-top: 32rpx;
+  padding-top: 32rpx;
+  border-top: 2rpx solid var(--gray-100);
+}
+
+.section-label {
+  font-size: 26rpx;
+  color: var(--gray-500);
+  margin-bottom: 16rpx;
+  font-weight: 500;
+}
+
+/* 好吃程度展示 */
+.detail-taste-display {
+  display: flex;
+  gap: 12rpx;
+}
+
+.taste-badge-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 32rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+}
+
+.taste-badge-lg.amazing { background: #fef3c7; color: #d97706; }
+.taste-badge-lg.good { background: #d1fae5; color: #059669; }
+.taste-badge-lg.okay { background: #e0e7ff; color: #4f46e5; }
+.taste-badge-lg.bad { background: #fee2e2; color: #dc2626; }
+
+/* 好吃程度选择（编辑） */
+.taste-selector {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.taste-opt {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 12rpx;
+  border-radius: 20rpx;
+  border: 3rpx solid var(--gray-200);
+  font-size: 26rpx;
+  color: var(--gray-500);
+  min-width: 120rpx;
+}
+
+.taste-opt .taste-emoji {
+  display: block;
+  font-size: 40rpx;
+  margin-bottom: 4rpx;
+}
+
+.taste-opt.active {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* 餐次选择 */
+.meal-select {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.meal-opt {
+  padding: 8rpx 24rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  border: 3rpx solid var(--gray-200);
+  color: var(--gray-400);
+}
+
+.meal-opt.active {
+  border-color: var(--green);
+  background: var(--green-bg);
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* 分类选择 */
+/* 备注 */
+.detail-notes {
+  font-size: 30rpx;
+  color: var(--gray-700);
+  line-height: 1.6;
+  padding: 16rpx 20rpx;
+  background: var(--gray-50);
+  border-radius: 16rpx;
+}
+
+.detail-time {
+  font-size: 28rpx;
+  color: var(--gray-400);
+}
+
+.detail-location {
+  font-size: 28rpx;
+  color: var(--gray-600);
+  padding: 16rpx 20rpx;
+  background: var(--gray-50);
+  border-radius: 12rpx;
+  line-height: 1.5;
+}
+
+/* 编辑模式：照片重选提示 */
+.edit-img-row {
+  margin-top: 24rpx;
+  padding: 20rpx;
+  background: var(--gray-50);
+  border-radius: 16rpx;
+  text-align: center;
+  border: 2rpx dashed var(--gray-200);
+}
+
+.edit-img-hint {
+  font-size: 26rpx;
+  color: var(--gray-500);
+}
+
+.edit-img-row:active {
+  border-color: var(--green);
+  background: var(--green-bg);
+}
+
+/* 编辑模式：备注输入 */
+.edit-notes-input {
+  width: 100%;
+  padding: 24rpx 28rpx;
+  border: 3rpx solid var(--gray-200);
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  outline: none;
+  box-sizing: border-box;
+  background: var(--gray-50);
+  min-height: 160rpx;
+}
+
+.edit-notes-input:focus {
+  border-color: var(--green);
+}
+
+/* 操作按钮 */
+.detail-actions {
+  display: flex;
+  gap: 24rpx;
+  padding: 0;
+  margin-top: 48rpx;
+}
+
+.detail-actions button {
+  flex: 1;
+  padding: 28rpx;
+  border-radius: var(--radius);
+  font-size: 30rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.detail-actions button::after {
+  border: none;
+}
+
+.btn-edit {
+  background: var(--green);
+  color: #fff;
+}
+
+.btn-edit:active {
+  background: var(--green-dark);
+}
+
+.btn-danger {
+  background: #fef2f2;
+  color: var(--red);
+}
+
+.btn-danger:active {
+  background: #fee2e2;
+}
+
+.btn-cancel-edit {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.btn-save-edit {
+  background: var(--green);
+  color: #fff;
+}
+
+.btn-save-edit:active {
+  background: var(--green-dark);
+}

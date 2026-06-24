@@ -1,0 +1,145 @@
+<view class="page-stats" style="padding-top:{{topPadding}}px;">
+
+  <!-- ===== 固定顶部：日期条 + 汇总 ===== -->
+  <view class="stats-header">
+    <view class="date-strip-wrap">
+      <view class="date-strip-header">
+        <view class="date-strip-header-left">
+          <text class="month-text">{{monthText}}</text>
+          <picker mode="date" value="{{selectedDateStr}}" end="{{maxDate}}" bindchange="onDateChange">
+            <text class="date-picker-btn">📅</text>
+          </picker>
+        </view>
+        <view class="month-arrows">
+          <text class="arrow" bindtap="changeMonth" data-delta="{{-1}}">‹</text>
+          <text class="arrow" bindtap="changeMonth" data-delta="{{1}}">›</text>
+        </view>
+      </view>
+      <scroll-view class="date-strip-scroll" scroll-x enhanced show-scrollbar="{{false}}" scroll-into-view="{{scrollToId}}">
+        <view class="date-strip">
+          <view
+            id="date-{{item.dateStr}}"
+            class="date-cell {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'active' : ''}} {{item.isOtherMonth ? 'other-month' : ''}}"
+            wx:for="{{dateCells}}" wx:key="dateStr"
+            data-date="{{item.dateStr}}" bindtap="selectDate"
+          >
+            <text class="dw">{{item.weekday}}</text>
+            <text class="dd">{{item.day}}</text>
+            <text class="dt" wx:if="{{item.isToday}}">今天</text>
+            <text class="dt" wx:elif="{{item.hasRecord && !item.isToday}}">·</text>
+            <text class="dt" wx:else></text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="day-summary">
+      <view class="summary-item">
+        <text class="summary-num">{{dayRecordCount}}</text>
+        <text class="summary-label">今日记录</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-num">{{dayMealCount}}</text>
+        <text class="summary-label">餐次</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 可滑动内容区 ===== -->
+  <scroll-view class="stats-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 按餐次分组 -->
+    <view wx:if="{{dayRecords.length > 0}}">
+      <view class="meal-group" wx:for="{{mealGroups}}" wx:key="mealKey">
+        <view class="meal-group-header">
+          <text>{{item.emoji}} {{item.label}}</text>
+          <text class="meal-group-line"></text>
+        </view>
+        <view class="record-item" wx:for="{{item.records}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+          <view class="food-img" style="background:{{item.bgColor}};">
+            <image class="food-img-real" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+            <text class="food-img-text" wx:else>{{item.emoji}}</text>
+          </view>
+          <view class="food-info">
+            <view class="food-name">{{item.foodName}}</view>
+            <view class="food-meta">{{item.timeLabel}}<text wx:if="{{item.notes}}"> · {{item.notes}}</text></view>
+          </view>
+          <view class="food-taste">
+            <text class="food-taste-emoji">{{item.tasteEmoji}}</text>
+            <text class="food-taste-label">{{item.tasteLabel}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">📝</text>
+      <view class="empty-text">这天还没有记录</view>
+      <button class="empty-btn" bindtap="goToRecord">记录饮食</button>
+    </view>
+
+    <!-- ===== 本周统计 ===== -->
+    <view class="stats-divider">本周统计</view>
+
+    <view class="chart-card" wx:if="{{weekTotal > 0}}">
+      <view class="chart-card-title">📈 本周概览</view>
+      <view class="week-summary">
+        <view class="summary-block">
+          <text class="summary-block-num">{{weekTotal}}</text>
+          <text class="summary-block-label">总记录</text>
+        </view>
+        <view class="summary-block">
+          <text class="summary-block-num">{{weekMealTypeCount}}</text>
+          <text class="summary-block-label">覆盖餐次</text>
+        </view>
+        <view class="summary-block">
+          <text class="summary-block-num">{{weekAvgDaily}}</text>
+          <text class="summary-block-label">日均记录</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="chart-card" wx:if="{{weekTotal > 0}}">
+      <view class="chart-card-title">🍽️ 本周餐次分布</view>
+      <view class="meal-dist-list">
+        <view class="meal-dist-item" wx:for="{{weekMealDist}}" wx:key="key">
+          <view class="meal-dist-header">
+            <text>{{item.emoji}} {{item.label}}</text>
+            <text class="meal-dist-count">{{item.count}} 次</text>
+          </view>
+          <view class="meal-dist-bar-bg">
+            <view class="meal-dist-bar" style="width:{{item.percent}}%;background:{{item.color}}"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 本月收藏 ===== -->
+    <view class="stats-divider">❤️ 本月收藏</view>
+    <view class="chart-card" wx:if="{{monthFavRecords.length > 0}}">
+      <view class="fav-records">
+        <view class="fav-record-item" wx:for="{{monthFavRecords}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+          <view class="food-img" style="background:{{item.bgColor}};">
+            <image class="food-img-real" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+            <text class="food-img-text" wx:else>{{item.emoji}}</text>
+          </view>
+          <view class="food-info">
+            <view class="food-name">{{item.foodName}}</view>
+            <view class="food-meta">{{item.mealLabel}} · {{item.timeLabel}}</view>
+          </view>
+          <view class="food-taste">
+            <text class="food-taste-emoji">{{item.tasteEmoji}}</text>
+            <text class="food-taste-label">{{item.tasteLabel}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="chart-card" wx:else>
+      <view class="empty-fav-block">
+        <view class="empty-fav-icon">💔</view>
+        <view class="empty-fav-text">本月还没有收藏记录</view>
+      </view>
+    </view>
+
+    <view style="height:60rpx;"></view>
+  </scroll-view>
+</view>

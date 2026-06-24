@@ -1,0 +1,39 @@
+<view class="page-favorites">
+  <!-- 统计 -->
+  <view class="fav-header">
+    <text class="fav-count">共 {{totalCount}} 个收藏</text>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view wx:if="{{records.length > 0}}">
+    <view
+      class="fav-item"
+      wx:for="{{records}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="goToDetail"
+    >
+      <view class="food-img" style="background:{{item.bgColor}};">
+        <image class="food-img-real" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+        <text class="food-img-text" wx:else>{{item.emoji}}</text>
+      </view>
+      <view class="food-info">
+        <view class="food-name">{{item.foodName}}</view>
+        <view class="food-meta">{{item.mealLabel}} · {{item.timeLabel}}</view>
+      </view>
+      <view class="food-taste">
+        <text class="food-taste-emoji">{{item.tasteEmoji}}</text>
+        <text class="food-taste-label">{{item.tasteLabel}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">💔</text>
+    <view class="empty-text">还没有收藏记录\n在记录详情页点击❤️收藏吧</view>
+    <button class="empty-btn" bindtap="goBack">返回首页</button>
+  </view>
+
+  <view style="height:40rpx;"></view>
+</view>

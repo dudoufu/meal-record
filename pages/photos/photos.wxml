@@ -1,0 +1,38 @@
+<view class="page-photos">
+  <!-- 统计信息 -->
+  <view class="photos-header">
+    <text class="photos-count">共 {{totalCount}} 张照片</text>
+  </view>
+
+  <!-- 按日期分组 -->
+  <view wx:if="{{groups.length > 0}}">
+    <view class="photo-group" wx:for="{{groups}}" wx:key="dateStr">
+      <view class="photo-date-divider">
+        <text>{{item.dateLabel}}</text>
+      </view>
+      <view class="photo-grid">
+        <view
+          class="photo-item"
+          wx:for="{{item.photos}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="goToDetail"
+        >
+          <view class="photo-bg" style="background:{{item.bgColor}};">
+            <image class="photo-real" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+            <text class="photo-emoji" wx:else>{{item.emoji}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">📷</text>
+    <view class="empty-text">还没有照片呢\n快去记录美食吧！</view>
+    <button class="empty-btn" bindtap="goToRecord">去记录饮食</button>
+  </view>
+
+  <view style="height:40rpx;"></view>
+</view>

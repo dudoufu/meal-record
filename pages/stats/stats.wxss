@@ -1,0 +1,454 @@
+/* ===== 统计页样式 ===== */
+.page-stats {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--gray-50);
+}
+
+.stats-header {
+  flex-shrink: 0;
+}
+
+.stats-scroll {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+/* 日期条容器 */
+.date-strip-wrap {
+  background: #fff;
+  padding: 24rpx 0 16rpx;
+}
+
+.date-strip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx 20rpx;
+}
+
+.date-strip-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.month-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.date-picker-btn {
+  font-size: 30rpx;
+  padding: 12rpx 16rpx;
+  border-radius: 16rpx;
+  background: var(--green-bg);
+  border: 2rpx solid var(--green-light);
+  line-height: 1;
+}
+
+.date-picker-btn:active {
+  background: var(--green-light);
+}
+
+.month-arrows {
+  display: flex;
+  gap: 24rpx;
+}
+
+.arrow {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: var(--gray-500);
+  text-align: center;
+  line-height: 64rpx;
+}
+
+.arrow:active {
+  background: var(--gray-100);
+}
+
+/* 日期条滚动 */
+.date-strip-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0 24rpx;
+}
+
+.date-strip {
+  display: flex;
+  gap: 8rpx;
+}
+
+.date-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  border-radius: 20rpx;
+  min-width: 96rpx;
+  transition: .15s;
+}
+
+.date-cell:active {
+  transform: scale(.92);
+}
+
+.date-cell .dw {
+  font-size: 22rpx;
+  color: var(--gray-400);
+  margin-bottom: 8rpx;
+}
+
+.date-cell .dd {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--gray-700);
+  line-height: 1.2;
+}
+
+.date-cell .dt {
+  font-size: 20rpx;
+  color: var(--gray-400);
+  margin-top: 4rpx;
+  height: 24rpx;
+}
+
+.date-cell.today .dd {
+  color: var(--green);
+}
+
+.date-cell.active {
+  background: var(--green);
+}
+
+.date-cell.active .dw,
+.date-cell.active .dd,
+.date-cell.active .dt {
+  color: #fff;
+}
+
+.date-cell.other-month .dd {
+  color: var(--gray-300);
+}
+
+.date-cell.other-month .dw {
+  color: var(--gray-200);
+}
+
+/* 当日汇总 */
+.day-summary {
+  display: flex;
+  margin: 0 32rpx 24rpx;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.summary-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 16rpx;
+  border-right: 2rpx solid var(--gray-50);
+}
+
+.summary-item:last-child {
+  border-right: none;
+}
+
+.summary-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.summary-label {
+  font-size: 22rpx;
+  color: var(--gray-400);
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 餐次分组 */
+.meal-group {
+  margin: 0 32rpx 16rpx;
+}
+
+.meal-group-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 0 8rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--gray-600);
+}
+
+.meal-group-line {
+  flex: 1;
+  height: 2rpx;
+  background: var(--gray-100);
+}
+
+/* 记录项 */
+.record-item {
+  display: flex;
+  gap: 24rpx;
+  padding: 24rpx 32rpx;
+  border-radius: var(--radius);
+  background: #fff;
+  margin-bottom: 4rpx;
+  box-shadow: var(--shadow);
+}
+
+.record-item:active {
+  opacity: .8;
+}
+
+.food-img {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.food-img-text {
+  font-size: 56rpx;
+}
+
+.food-img-real {
+  width: 100%;
+  height: 100%;
+}
+
+.food-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.food-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.food-meta {
+  font-size: 26rpx;
+  color: var(--gray-400);
+  margin-top: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.food-taste {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.food-taste-emoji {
+  font-size: 44rpx;
+  line-height: 1;
+}
+
+.food-taste-label {
+  font-size: 20rpx;
+  color: var(--gray-400);
+}
+
+/* 统计分割线 */
+.stats-divider {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 40rpx 40rpx 24rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--gray-400);
+}
+
+.stats-divider::before,
+.stats-divider::after {
+  content: '';
+  flex: 1;
+  height: 2rpx;
+  background: var(--gray-200);
+}
+
+/* 图表卡片 */
+.chart-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32rpx;
+  margin: 0 32rpx 24rpx;
+  box-shadow: var(--shadow);
+}
+
+.chart-card-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 24rpx;
+}
+
+/* 本周概览卡片 */
+.week-summary {
+  display: flex;
+  gap: 16rpx;
+}
+
+.summary-block {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 8rpx;
+  background: var(--gray-50);
+  border-radius: 16rpx;
+}
+
+.summary-block-num {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+}
+
+.summary-block-label {
+  font-size: 22rpx;
+  color: var(--gray-400);
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 本周餐次分布 */
+.meal-dist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.meal-dist-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.meal-dist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: var(--gray-600);
+}
+
+.meal-dist-count {
+  font-size: 24rpx;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.meal-dist-bar-bg {
+  height: 24rpx;
+  background: var(--gray-100);
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.meal-dist-bar {
+  height: 100%;
+  border-radius: 12rpx;
+  transition: width .4s;
+}
+
+/* 空状态 */
+.empty-icon {
+  font-size: 128rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+
+.empty-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 32rpx;
+  padding: 20rpx 48rpx;
+  border-radius: 48rpx;
+  background: var(--green);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.empty-btn::after {
+  border: none;
+}
+
+/* 本月收藏列表 */
+.fav-records {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.fav-record-item {
+  display: flex;
+  gap: 20rpx;
+  padding: 16rpx 20rpx;
+  background: var(--gray-50);
+  border-radius: 16rpx;
+  align-items: center;
+  position: relative;
+}
+
+.fav-record-item:active {
+  opacity: .8;
+}
+
+.fav-heart {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  font-size: 28rpx;
+}
+
+.empty-fav-block {
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.empty-fav-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.empty-fav-text {
+  font-size: 26rpx;
+  color: var(--gray-400);
+  line-height: 1.6;
+}

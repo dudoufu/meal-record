@@ -1,0 +1,78 @@
+<view class="page-home" style="padding-top:{{topPadding}}px;">
+
+  <!-- ===== 固定顶部：问候 + 好吃榜 + 标题 ===== -->
+  <view class="home-header">
+    <view class="hero-section">
+      <view class="hero-greeting">{{greeting}}</view>
+      <view class="hero-stats">
+        <view class="hero-stat-item">
+          <view class="hero-stat-num">{{todayCount}}</view>
+          <view class="hero-stat-label">今日记录</view>
+        </view>
+      </view>
+      <view class="hero-badge" wx:if="{{streak > 0}}">🔥 已连续记录 {{streak}} 天</view>
+      <view class="hero-badge" wx:else>🌱 开始你的干饭日记吧</view>
+    </view>
+
+    <view class="card" style="margin-top:-16rpx;">
+      <view class="card-title">🤤 今日好吃榜</view>
+      <view class="taste-dist-home">
+        <view class="taste-badge t1" wx:if="{{todayDist.amazing > 0}}">😋 超赞 {{todayDist.amazing}}</view>
+        <view class="taste-badge t1" wx:else style="opacity:0.4">😋 超赞 0</view>
+        <view class="taste-badge t2" wx:if="{{todayDist.good > 0}}">🤩 好吃 {{todayDist.good}}</view>
+        <view class="taste-badge t2" wx:else style="opacity:0.4">🤩 好吃 0</view>
+        <view class="taste-badge t3" wx:if="{{todayDist.okay > 0}}">😐 一般 {{todayDist.okay}}</view>
+        <view class="taste-badge t3" wx:else style="opacity:0.4">😐 一般 0</view>
+        <view class="taste-badge t4" wx:if="{{todayDist.bad > 0}}">😣 踩雷 {{todayDist.bad}}</view>
+        <view class="taste-badge t4" wx:else style="opacity:0.4">😣 踩雷 0</view>
+      </view>
+    </view>
+
+    <view class="section-title">
+      <text class="section-title-text">📋 最近记录</text>
+      <text class="section-more" bindtap="goToStats">查看全部 →</text>
+    </view>
+  </view>
+
+  <!-- ===== 可滑动区域：记录列表 ===== -->
+  <scroll-view class="home-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view wx:if="{{recentRecords.length > 0}}">
+      <view
+        class="record-item"
+        wx:for="{{recentRecords}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="food-img" style="background:{{item.bgColor}};">
+          <image class="food-img-real" src="{{item.imageUrl}}" mode="aspectFill" wx:if="{{item.imageUrl}}"></image>
+          <text class="food-img-text" wx:else>{{item.emoji}}</text>
+        </view>
+        <view class="food-info">
+          <view class="food-name">{{item.foodName}}</view>
+          <view class="food-meta">{{item.mealLabel}} · {{item.timeLabel}}</view>
+        </view>
+        <view class="food-taste">
+          <text class="food-taste-emoji">{{item.tasteEmoji}}</text>
+          <text class="food-taste-label">{{item.tasteLabel}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">🍽️</text>
+      <view class="empty-text">还没有记录呢\n快去记录今天的美食吧！</view>
+      <button class="empty-btn" bindtap="goToRecord">去记录饮食</button>
+    </view>
+
+    <!-- 底部留白 -->
+    <view style="height:200rpx;"></view>
+  </scroll-view>
+
+  <!-- ===== 底部固定按钮 ===== -->
+  <view class="home-fab" wx:if="{{recentRecords.length > 0}}" bindtap="goToRecord">
+    <text class="home-fab-icon">🍽️</text>
+    <text>记录饮食</text>
+  </view>
+</view>

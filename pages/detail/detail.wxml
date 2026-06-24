@@ -1,0 +1,118 @@
+<view class="page-detail">
+
+  <!-- ===== 食物图片（预览/编辑共用） ===== -->
+  <view class="detail-image">
+    <image class="detail-real-image" src="{{imageUrl}}" mode="aspectFill" wx:if="{{imageUrl}}"></image>
+    <text class="detail-emoji" wx:else>{{foodEmoji}}</text>
+  </view>
+
+  <!-- ===== 预览模式 ===== -->
+  <view class="detail-body" wx:if="{{!editMode}}">
+    <!-- 名称 + 收藏 -->
+    <view class="detail-name-row">
+      <view class="detail-name">{{foodName}}</view>
+      <view class="detail-fav" bindtap="toggleFavorite">
+        <text wx:if="{{isFavorited}}">❤️</text>
+        <text wx:else>🤍</text>
+      </view>
+    </view>
+
+    <!-- 元信息 -->
+    <view class="detail-meta">
+      <text class="meta-item">🍽️ {{mealLabel}}</text>
+      <text class="meta-item">📅 {{timeLabel}}</text>
+    </view>
+
+    <!-- 好吃程度展示 -->
+    <view class="detail-section">
+      <view class="section-label">🤤 好吃程度</view>
+      <view class="detail-taste-display">
+        <text class="taste-badge-lg {{tastiness}}">{{tastinessEmoji}} {{tastinessLabel}}</text>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="detail-section" wx:if="{{notes}}">
+      <view class="section-label">📝 备注</view>
+      <view class="detail-notes">{{notes}}</view>
+    </view>
+
+    <!-- 位置 -->
+    <view class="detail-section" wx:if="{{locationText}}">
+      <view class="section-label">📍 位置</view>
+      <view class="detail-location">{{locationText}}</view>
+    </view>
+
+    <!-- 记录时间 -->
+    <view class="detail-section">
+      <view class="section-label">⏰ 记录时间</view>
+      <view class="detail-time">{{createdAtDisplay}}</view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="detail-actions">
+      <button class="btn-edit" bindtap="enterEditMode">✏️ 编辑记录</button>
+      <button class="btn-danger" bindtap="deleteRecord">🗑️ 删除</button>
+    </view>
+  </view>
+
+  <!-- ===== 编辑模式 ===== -->
+  <view class="detail-body" wx:else>
+    <!-- 名称 + 收藏 -->
+    <view class="detail-name-row">
+      <input class="detail-name-input" value="{{foodName}}" placeholder="输入食物名称" bindinput="onEditNameInput" />
+      <view class="detail-fav" bindtap="toggleFavorite">
+        <text wx:if="{{isFavorited}}">❤️</text>
+        <text wx:else>🤍</text>
+      </view>
+    </view>
+
+    <!-- 照片重选 -->
+    <view class="edit-img-row" bindtap="retakePhoto">
+      <text class="edit-img-hint">🔄 点击重新拍照或选图</text>
+    </view>
+
+    <!-- 餐次 -->
+    <view class="detail-section">
+      <view class="section-label">🍽️ 餐次</view>
+      <view class="meal-select">
+        <view class="meal-opt {{editMealType === item.key ? 'active' : ''}}"
+          wx:for="{{mealTypes}}" wx:key="key"
+          data-key="{{item.key}}" bindtap="selectEditMealType"
+        >{{item.emoji}} {{item.label}}</view>
+      </view>
+    </view>
+
+    <!-- 好吃程度 -->
+    <view class="detail-section">
+      <view class="section-label">🤤 好吃程度</view>
+      <view class="taste-selector">
+        <view class="taste-opt {{editTastiness === item.key ? 'active' : ''}}"
+          wx:for="{{tastinessList}}" wx:key="key"
+          data-taste="{{item.key}}" bindtap="selectEditTastiness"
+        >
+          <text class="taste-emoji">{{item.emoji}}</text>
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 位置 -->
+    <view class="detail-section" wx:if="{{locationText}}">
+      <view class="section-label">📍 位置</view>
+      <view class="detail-location">{{locationText}}</view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="detail-section">
+      <view class="section-label">📝 备注</view>
+      <textarea class="edit-notes-input" value="{{editNotes}}" placeholder="写一句备注..." bindinput="onEditNotesInput"></textarea>
+    </view>
+
+    <!-- 编辑按钮 -->
+    <view class="detail-actions">
+      <button class="btn-cancel-edit" bindtap="cancelEdit">取消</button>
+      <button class="btn-save-edit" bindtap="saveEdit">💾 保存修改</button>
+    </view>
+  </view>
+</view>

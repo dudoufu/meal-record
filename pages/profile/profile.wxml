@@ -1,0 +1,48 @@
+<view class="page-profile" style="padding-top:{{topPadding}}px;">
+
+  <!-- 用户信息（点击获取微信信息） -->
+  <view class="profile-header" bindtap="getUserInfo">
+    <view class="profile-avatar">
+      <image class="avatar-image" src="{{avatarUrl}}" wx:if="{{avatarUrl}}"></image>
+      <text class="avatar-text" wx:else>{{avatarEmoji}}</text>
+    </view>
+    <view class="profile-info">
+      <view class="profile-name">{{nickName}}</view>
+      <view class="profile-desc">已记录 {{totalRecords}} 餐</view>
+      <view class="profile-desc" wx:if="{{streak > 0}}">🔥 连续 {{streak}} 天</view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-group">
+    <view class="menu-item" bindtap="goToPhotos">
+      <text class="menu-icon">📷</text>
+      <text class="menu-label">全部照片</text>
+      <text class="menu-badge">{{totalRecords}} 张</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToFavorites">
+      <text class="menu-icon">❤️</text>
+      <text class="menu-label">我的收藏</text>
+      <text class="menu-badge">{{favCount}} 个</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 其他 -->
+  <view class="menu-group">
+    <view class="menu-item" bindtap="showComingSoon">
+      <text class="menu-icon">📖</text>
+      <text class="menu-label">使用帮助</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="showComingSoon">
+      <text class="menu-icon">ℹ️</text>
+      <text class="menu-label">关于干饭日记</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 版本号 -->
+  <view class="version-info">干饭日记 v1.0.0</view>
+</view>

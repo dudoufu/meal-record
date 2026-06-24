@@ -1,0 +1,161 @@
+<view class="page-record">
+
+  <!-- ===== 拍照上传区域 ===== -->
+  <view class="record-upload-area" wx:if="{{!showResult}}" bindtap="startRecognition">
+    <text class="upload-icon">📷</text>
+    <view class="upload-main-text">点击拍照或选择图片</view>
+    <view class="upload-sub-text">支持拍照和相册上传</view>
+  </view>
+
+  <!-- 拍照/相册按钮 -->
+  <view class="record-buttons" wx:if="{{!showResult}}">
+    <button class="record-btn primary" bindtap="takePhoto">📷 拍照</button>
+    <button class="record-btn secondary" bindtap="chooseImage">🖼️ 相册</button>
+  </view>
+
+  <!-- 手动录入入口 -->
+  <view class="record-manual-link" wx:if="{{!showResult}}" bindtap="openManual">
+    ✍️ 手动记录（不方便拍照时）
+  </view>
+
+  <!-- ===== 编辑表单（拍照/选图后直接展示） ===== -->
+  <view class="edit-form {{showResult ? 'show' : ''}}">
+    <!-- 食物图片（点击可重新拍照/选图） -->
+    <view class="edit-img" bindtap="retakePhoto">
+      <image class="edit-image" src="{{imageUrl}}" mode="aspectFill"></image>
+      <view class="edit-img-overlay">
+        <text class="edit-img-tip">🔄 点击重选</text>
+      </view>
+    </view>
+
+    <view class="edit-body">
+      <!-- 食物名称 + 收藏 -->
+      <view class="form-field">
+        <view class="field-label">食物名称</view>
+        <view class="name-row">
+          <input
+            class="field-input name-input"
+            value="{{foodName}}"
+            placeholder="输入食物名称"
+            bindinput="onNameInput"
+          />
+          <view class="name-fav" bindtap="toggleRecordFav">
+            <text wx:if="{{recordFavorited}}">❤️</text>
+            <text wx:else>🤍</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 餐次选择 -->
+      <view class="form-field">
+        <view class="field-label">餐次</view>
+        <view class="meal-select">
+          <view
+            class="meal-opt {{mealType === item.key ? 'active' : ''}}"
+            wx:for="{{mealTypes}}"
+            wx:key="key"
+            data-key="{{item.key}}"
+            bindtap="selectMealType"
+          >{{item.emoji}} {{item.label}}</view>
+        </view>
+      </view>
+
+      <!-- 好吃程度 -->
+      <view class="form-field">
+        <view class="field-label">🤤 好吃程度</view>
+        <view class="taste-selector">
+          <view
+            class="taste-opt {{tastiness === item.key ? 'active' : ''}}"
+            wx:for="{{tastinessList}}"
+            wx:key="key"
+            data-key="{{item.key}}"
+            bindtap="selectTastiness"
+          >
+            <text class="taste-emoji">{{item.emoji}}</text>
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 位置 -->
+      <view class="form-field">
+        <view class="field-label">📍 位置</view>
+        <view class="field-location {{locationText === '' ? 'loading' : locationText.indexOf('失败') !== -1 || locationText.indexOf('拒绝') !== -1 ? 'error' : ''}}">
+          <text wx:if="{{locationText === ''}}">正在获取位置...</text>
+          <text wx:elif="{{locationText.indexOf('失败') !== -1 || locationText.indexOf('拒绝') !== -1}}">{{locationText}}</text>
+          <text wx:else>{{locationText}}</text>
+        </view>
+      </view>
+
+      <!-- 备注 -->
+      <view class="form-field">
+        <view class="field-label">备注（选填）</view>
+        <textarea
+          class="field-textarea"
+          value="{{notes}}"
+          placeholder="今天这顿怎么样？写一句..."
+          bindinput="onNotesInput"
+        ></textarea>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
+    <view class="edit-actions">
+      <button class="btn-cancel" bindtap="cancelRecord">✕ 取消</button>
+      <button class="btn-save" bindtap="saveRecord">💾 保存</button>
+    </view>
+  </view>
+
+  <!-- ===== 手动录入弹窗 ===== -->
+  <view class="modal-overlay {{showManual ? 'open' : ''}}">
+    <view class="modal-sheet">
+      <view class="modal-handle"></view>
+      <view class="modal-header">
+        <text class="modal-title">✍️ 手动记录</text>
+        <text class="modal-close" bindtap="closeManual">✕</text>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">食物名称</text>
+        <input class="form-input" placeholder="例如：宫保鸡丁" value="{{manualName}}" bindinput="onManualNameInput" />
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">餐次</text>
+        <view class="meal-select">
+          <view
+            class="meal-opt {{manualMealType === item.key ? 'active' : ''}}"
+            wx:for="{{mealTypes}}"
+            wx:key="key"
+            data-key="{{item.key}}"
+            bindtap="selectManualMealType"
+          >{{item.emoji}} {{item.label}}</view>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">🤤 好吃程度</text>
+        <view class="taste-selector">
+          <view
+            class="taste-opt {{manualTastiness === item.key ? 'active' : ''}}"
+            wx:for="{{tastinessList}}"
+            wx:key="key"
+            data-key="{{item.key}}"
+            bindtap="selectManualTastiness"
+          >
+            <text class="taste-emoji">{{item.emoji}}</text>
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">备注（选填）</text>
+        <textarea class="form-textarea" placeholder="今天这顿怎么样？" value="{{manualNotes}}" bindinput="onManualNotesInput" />
+      </view>
+
+      <button class="form-submit" bindtap="saveManual">💾 保存记录</button>
+      <view style="height:32rpx;"></view>
+    </view>
+  </view>
+</view>

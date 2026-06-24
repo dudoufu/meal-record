@@ -1,0 +1,25 @@
+# 干饭日记 - 微信小程序
+
+# 依赖
+node_modules/
+miniprogram_npm/
+
+# 微信开发者工具
+.projectconfig
+.projectprivateconfig
+*.code-workspace
+
+# 云函数
+cloudfunctions/
+.env
+
+# 系统
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
